@@ -37,9 +37,7 @@ endif
 
 call dein#add($HOME . '/.config/nvim/dein/plugins/vim-scripts/gtags.vim')
 
-"-------------------------------------------
-" netrw
-"-------------------------------------------
+" [ netrw ]
 let g:netrw_liststyle = 3
 let g:netrw_sizestyle = "H"
 let g:netrw_timefmt   = "%Y/%m/%d(%a) %H:%M:%S"
@@ -148,6 +146,7 @@ augroup vimrc-local
   autocmd BufNewFile,BufReadPost * call s:vimrc_local(expand('<afile>:p:h'))
 augroup END
 
+" Enable local setting file '.vimrc.local'
 function! s:vimrc_local(loc)
   let files = findfile('.vimrc.local', escape(a:loc, ' ') . ';', -1)
   for i in reverse(filter(files, 'filereadable(v:val)'))
