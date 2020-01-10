@@ -1,6 +1,6 @@
 # neovim configuration
 
-This is environment to start neovim with coc.nvim and C/C++ lsp.
+This is environment to start neovim with coc.nvim and C/C++ language server.
 
 ## Build configuration
 

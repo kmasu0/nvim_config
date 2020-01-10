@@ -191,13 +191,13 @@ hook_add = '''
 highlight ReservedIdentifiers ctermfg=160
 '''
 
-# [[plugins]]
-# repo = 'octol/vim-cpp-enhanced-highlight'
-# hook_add = '''
-# let g:cpp_class_scope_highlight = 1
-# let g:cpp_class_decl_highlight = 1
-# let g:cpp_concepts_highlight = 1
-# '''
+[[plugins]]
+repo = 'octol/vim-cpp-enhanced-highlight'
+hook_add = '''
+let g:cpp_class_scope_highlight = 1
+let g:cpp_class_decl_highlight = 1
+let g:cpp_concepts_highlight = 1
+'''
 
 [[plugins]]
 repo = 'osyo-manga/vim-cpp-syntax-reserved_identifiers'
