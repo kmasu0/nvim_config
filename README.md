@@ -2,9 +2,9 @@
 
 This is environment to start neovim with coc.nvim and C/C++ lsp.
 
-## Build
+## Build configuration
 
-Set as follow.
+**Complete neovim installation before doing this.**
 
 ```bash
 $ cd ~/.config

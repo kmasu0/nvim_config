@@ -38,11 +38,15 @@ endif
 call dein#add($HOME . '/.config/nvim/dein/plugins/vim-scripts/gtags.vim')
 
 "-------------------------------------------
-" airline
+" netrw
 "-------------------------------------------
-" let g:airline_section_a = airline#section#create(['mode', 'crypt'])
-set ttimeoutlen=50
-set updatetime=200
+let g:netrw_liststyle = 3
+let g:netrw_sizestyle = "H"
+let g:netrw_timefmt   = "%Y/%m/%d(%a) %H:%M:%S"
+let g:netrw_banner    = 0
+let g:netrw_preview   = 1
+let g:netrw_winsize   = 30
+
 "-------------------------------------------
 " nvim setting
 "-------------------------------------------
@@ -53,6 +57,9 @@ set nowritebackup
 set shortmess+=c
 
 set signcolumn=yes
+
+set ttimeoutlen=50
+set updatetime=200
 
 " window visual
 set title
