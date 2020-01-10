@@ -140,22 +140,9 @@ colorscheme neodark
 
 [[plugins]]
 repo = 'cohama/lexima.vim'
-[[plugins]]
-repo =  'scrooloose/nerdtree'
-hook_add = '''
-let g:NERTTreeShowBookmarks=1
-let g:NERDTreeShowHidden = 1
-nnoremap <C-l> :NERDTreeTabsToggle<CR>:AirlineTheme neodark<CR>
-'''
 
 [[plugins]]
 repo = 'Shirk/vim-gas'
-
-[[plugins]]
-repo =  'jistr/vim-nerdtree-tabs'
-
-[[plugins]]
-repo =  'Xuyuanp/nerdtree-git-plugin'
 
 [[plugins]]
 repo =  'tomtom/tcomment_vim'
@@ -187,11 +174,6 @@ au FileType qf nnoremap <silent><buffer>q :quit<CR>
 
 [[plugins]]
 repo =  'dhruvasagar/vim-table-mode'
-
-[[plugins]]
-repo = 'Shougo/denite.nvim'
-on_cmd = ['Denite','DeniteBufferDir']
-if = 'has("nvim")'
 
 [[plugins]]
 repo = 'tpope/vim-fugitive'
