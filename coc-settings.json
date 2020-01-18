@@ -1,11 +1,13 @@
 {
   "languageserver": {
-    "clangd": {
-      "command": "clangd",
-      "args": ["--background-index"],
-      "rootPatterns": ["compile_flags.txt", "compile_commands.json", "./", ".config/nvim/", ".git/", ".hg/"],
-      "filetypes": ["c", "cpp", "objc", "objcpp"]
+    "ccls": {
+      "command": "ccls",
+      "filetypes": ["c", "cpp", "objc", "objcpp"],
+      "rootPatterns": [".ccls-root", "compile_flags.txt", "compile_commands.json", "./", ".config/nvim/", ".git/", ".hg/"],
+      "initializationOptions": {
+        "cache": {
+          "directory": ".ccls-cache"
+      }
     }
-  },
-  "suggest.timeout": 500
+  }
 }

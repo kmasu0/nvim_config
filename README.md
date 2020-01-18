@@ -2,9 +2,12 @@
 
 This is environment to start neovim with coc.nvim and C/C++ language server.
 
-## Build configuration
+## Pre Build
 
-**Complete neovim installation before doing this.**
+- Install neovim
+- Install [ccls](https://github.com/MaskRay/ccls)
+
+## Build configuration
 
 ```bash
 $ cd ~/.config
