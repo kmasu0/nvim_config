@@ -9,7 +9,7 @@ hook_add = '''
   set nobackup
   set nowritebackup
   set cmdheight=2
-  set updatetime=300
+  set updatetime=200
   set shortmess+=c
 
   inoremap <silent><expr> <TAB>
@@ -94,16 +94,6 @@ if has('conceal')
 endif
 '''
 depends = ['neosnippet-snippets']
-
-[[plugins]]
-repo = 'Shougo/neoinclude.vim'
-on_ft = ['c', 'cpp', 'cc', 'h', 'hh', 'hpp', 'C' 'H']
-depends = ['neoclide/coc.nvim']
-
-[[plugins]]
-repo = 'jsfaint/coc-neoinclude'
-on_ft = ['c', 'cpp', 'cc', 'h', 'hh', 'hpp', 'C' 'H']
-depends = ['neoclide/coc.nvim', 'Shougo/neoinclude.vim']
 
 [[plugins]]
 repo = 'leico/autodate.vim'
@@ -246,7 +236,7 @@ repo = 'vim-scripts/DoxygenToolkit.vim'
 [[plugins]]
 repo = 'mileszs/ack.vim'
 hook_add = '''
-let g:ackprg = 'ag --vimgrep'
+let g:ackprg = 'rg --vimgrep'
 '''
 
 [[plugins]]
