@@ -85,13 +85,13 @@ repo = 'Shougo/neosnippet-snippets'
 repo = 'Shougo/neosnippet.vim'
 on_event = 'InsertCharPre'
 on_ft = ['snippet']
-hook_source = '''
-imap <C-k> <Plug>(neosnippet_expand_or_jump)
-smap <C-k> <Plug>(neosnippet_expand_or_jump)
-xmap <C-k> <Plug>(neosnippet_expand_target)
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
+hook_add = '''
+  imap <C-k> <Plug>(neosnippet_expand_or_jump)
+  smap <C-k> <Plug>(neosnippet_expand_or_jump)
+  xmap <C-k> <Plug>(neosnippet_expand_target)
+  if has('conceal')
+    set conceallevel=2 concealcursor=niv
+  endif
 '''
 depends = ['neosnippet-snippets']
 
@@ -114,17 +114,17 @@ repo = 'Shougo/neomru.vim'
 [[plugins]]
 repo = 'kassio/neoterm'
 hook_add = '''
-let g:neoterm_autoscroll=1
+  let g:neoterm_autoscroll=1
 '''
 
 [[plugins]]
 repo = 'sheerun/vim-polyglot'
 hook_add = '''
-let g:cpp_class_scope_highlight = 1
-let g:cpp_class_decl_highlight = 1
-let g:python_highlight_all = 1
-let g:vim_markdown_conceal = 0
-let g:vim_markdown_conceal_code_blocks = 0
+  let g:cpp_class_scope_highlight = 1
+  let g:cpp_class_decl_highlight = 1
+  let g:python_highlight_all = 1
+  let g:vim_markdown_conceal = 0
+  let g:vim_markdown_conceal_code_blocks = 0
 '''
 
 [[plugins]]
@@ -134,8 +134,8 @@ depends = [ 'KeitaNakamura/neodark.vim' ]
 [[plugins]]
 repo = 'KeitaNakamura/neodark.vim'
 hook_add = '''
-let g:neodark#terminal_transparent = 1
-colorscheme neodark
+  let g:neodark#terminal_transparent = 1
+  colorscheme neodark
 '''
 
 [[plugins]]
@@ -181,22 +181,22 @@ repo = 'tpope/vim-fugitive'
 [[plugins]]
 repo = 'airblade/vim-gitgutter'
 hook_add = '''
-set updatetime=400
-let g:gitgutter_highlight_lines = 0
+  set updatetime=400
+  let g:gitgutter_highlight_lines = 0
 '''
 
 [[plugins]]
 repo = 'vim-jp/vim-cpp'
 hook_add = '''
-highlight ReservedIdentifiers ctermfg=160
+  highlight ReservedIdentifiers ctermfg=160
 '''
 
 [[plugins]]
 repo = 'octol/vim-cpp-enhanced-highlight'
 hook_add = '''
-let g:cpp_class_scope_highlight = 1
-let g:cpp_class_decl_highlight = 1
-let g:cpp_concepts_highlight = 1
+  let g:cpp_class_scope_highlight = 1
+  let g:cpp_class_decl_highlight = 1
+  let g:cpp_concepts_highlight = 1
 '''
 
 [[plugins]]
@@ -211,12 +211,12 @@ repo = 'chriskempson/base16-vim'
 [[plugins]]
 repo = 'chriskempson/base16'
 hook_add = '''
-syntax enable
-set termguicolors
-autocmd ColorScheme * highlight MatchParen guibg=Red
-autocmd ColorScheme * highlight Include guifg=#98C379 gui=underline
-autocmd ColorScheme * highlight Comment gui=italic
-autocmd ColorScheme * highligh clear CursorLine
+  syntax enable
+  set termguicolors
+  autocmd ColorScheme * highlight MatchParen guibg=Red
+  autocmd ColorScheme * highlight Include guifg=#98C379 gui=underline
+  autocmd ColorScheme * highlight Comment gui=italic
+  autocmd ColorScheme * highligh clear CursorLine
 '''
 # highlight clear CursorLine
 depend = ['chriskempson/base16-vim']
@@ -228,16 +228,16 @@ repo = 'Lokaltog/vim-powerline'
 repo = 'vim-airline/vim-airline'
 depends = ['vim-airline-themes', 'Lokaltog/vim-powerline', 'airblade/vim-gitgutter']
 hook_add = '''
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#whitespace#enabled = 1
-let g:airline#extensions#readonly#enabled = 1
-let g:airline_powerline_fonts = 1
-set hidden
-nmap <C-j> :bnext<CR>
-nmap <C-k> :bprevious<CR>
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-let g:airline#extensions#hunks#enabled = 1
-let g:airline_theme = 'neodark'
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline#extensions#whitespace#enabled = 1
+  let g:airline#extensions#readonly#enabled = 1
+  let g:airline_powerline_fonts = 1
+  set hidden
+  nnoremap <C-j> :bnext<CR>
+  nnoremap <C-k> :bprevious<CR>
+  let g:airline#extensions#tabline#buffer_idx_mode = 1
+  let g:airline#extensions#hunks#enabled = 1
+  let g:airline_theme = 'neodark'
 '''
 
 [[plugins]]
@@ -246,8 +246,110 @@ repo = 'vim-scripts/DoxygenToolkit.vim'
 [[plugins]]
 repo = 'mileszs/ack.vim'
 hook_add = '''
-let g:ackprg = 'ag --vimgrep'
+  let g:ackprg = 'rg --vimgrep'
 '''
 
 [[plugins]]
 repo = 'pboettch/vim-cmake-syntax'
+
+[[plugins]]
+repo = 'Shougo/defx.nvim'
+on_cmd = 'Defx'
+depend = ['defx-icons', 'defx-git']
+hook_add = '''
+  nnoremap <silent> <C-l> 
+  \ :Defx -split=vertical -winwidth=40 -search=`expand('%:p')` -direction=topleft `expand('%:p:h')` -buffer-name=tab`tabpagenr()`<CR>
+  autocmd FileType defx call s:defx_my_settings()
+  function! s:defx_my_settings() abort
+    " Define mappings
+    nnoremap <silent><buffer><expr> <CR>
+    \ defx#is_directory() ?
+    \ defx#do_action('open_or_close_tree') :
+    \ defx#do_action('drop')
+    nnoremap <silent><buffer><expr> c
+    \ defx#do_action('copy')
+    nnoremap <silent><buffer><expr> m
+    \ defx#do_action('move')
+    nnoremap <silent><buffer><expr> p
+    \ defx#do_action('paste')
+    nnoremap <silent><buffer><expr> l
+    \ defx#do_action('open')
+    nnoremap <silent><buffer><expr> K
+    \ defx#do_action('new_directory')
+    nnoremap <silent><buffer><expr> N
+    \ defx#do_action('new_file')
+    nnoremap <silent><buffer><expr> C
+    \ defx#do_action('toggle_columns',
+    \                'git:mark:indent:icon:filename:type:size:time')
+    nnoremap <silent><buffer><expr> S
+    \ defx#do_action('toggle_sort', 'time')
+    nnoremap <silent><buffer><expr> d
+    \ defx#do_action('remove')
+    nnoremap <silent><buffer><expr> r
+    \ defx#do_action('rename')
+    nnoremap <silent><buffer><expr> !
+    \ defx#do_action('execute_command')
+    nnoremap <silent><buffer><expr> x
+    \ defx#do_action('execute_system')
+    nnoremap <silent><buffer><expr> yy
+    \ defx#do_action('yank_path')
+    nnoremap <silent><buffer><expr> .
+    \ defx#do_action('toggle_ignored_files')
+    nnoremap <silent><buffer><expr> ;
+    \ defx#do_action('repeat')
+    nnoremap <silent><buffer><expr> u
+    \ defx#do_action('cd', ['..'])
+    nnoremap <silent><buffer><expr> ~
+    \ defx#do_action('cd')
+    nnoremap <silent><buffer><expr> q
+    \ defx#do_action('quit')
+    nnoremap <silent><buffer><expr> <Space>
+    \ defx#do_action('toggle_select') . 'j'
+    nnoremap <silent><buffer><expr> *
+    \ defx#do_action('toggle_select_all')
+    nnoremap <silent><buffer><expr> j
+    \ line('.') == line('$') ? 'gg' : 'j'
+    nnoremap <silent><buffer><expr> k
+    \ line('.') == 1 ? 'G' : 'k'
+    nnoremap <silent><buffer><expr> <C-l>
+    \ defx#do_action('redraw')
+    nnoremap <silent><buffer><expr> <C-g>
+    \ defx#do_action('print')
+    nnoremap <silent><buffer><expr> cd
+    \ defx#do_action('change_vim_cwd')
+  endfunction
+'''
+# hook_add = '''
+#   nnoremap <silent> <C-l> 
+#     \ :Defx -buffer-name=tab`tabpagenr()`<CR>
+#   nnoremap <silent><buffer><expr> ~ defx#util#cd('~')
+#   nnoremap <silent><buffer><expr> <CR>
+#   \  defx#is_directory() ?
+#   \  defx#do_action('open_directory') :
+#   \  defx#do_action('multi', ['drop', 'quit'])
+# '''
+hook_source ='''
+  function! Root(path) abort
+    return fnamemodify(a:path, ':t')
+  endfunction
+
+  call defx#custom#source('file', {
+      \ 'root': 'Root',
+      \ })
+
+  call defx#custom#option('_', {
+      \ 'columns': 'indent:git:icons:filename',
+      \ 'show_ignored_files': 1,
+      \ })
+'''
+#
+[[plugins]]
+repo = 'kristijanhusak/defx-icons'
+
+[[plugins]]
+repo = 'kristijanhusak/defx-git'
+
+# [plugins.ftplugin]
+# defx = '''
+# '''
+
