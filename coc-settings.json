@@ -3,12 +3,48 @@
     "ccls": {
       "command": "ccls",
       "filetypes": ["c", "cpp", "objc", "objcpp"],
-      "rootPatterns": [".ccls-root", "compile_flags.txt", "compile_commands.json", "./", ".config/nvim/", ".git/", ".hg/"],
+      "rootPatterns": [
+        ".ccls-root",
+        "compile_flags.txt",
+        "compile_commands.json",
+        "./",
+        ".config/nvim/",
+        ".git/",
+        ".hg/"
+      ],
       "initializationOptions": {
         "cache": {
-          "directory": ".ccls-cache"
+          "directory": "/home/k-masuda/.cache/ccls-cache"
         }
       }
+    },
+    "cmake": {
+      "command": "cmake-language-server",
+      "filetypes": ["cmake"],
+      "rootPatterns": ["build/"],
+      "initializationOptions": {
+        "buildDirectory": "build"
+      }
     }
-  }
+  },
+  "diagnostic-languageserver.filetypes": { "sh": "shellcheck" },
+  "diagnostic-languageserver.formatFiletypes": {
+    "sh": "shfmt"
+  },
+  "diagnostic-languageserver.formatters": {
+    "shfmt": {
+      "command": "shfmt",
+      "args": ["-i", "2", "-bn", "-ci", "-sr"]
+    }
+  },
+  "coc.preferences.formatOnSaveFiletypes": [
+    "c",
+    "cpp",
+    "objc",
+    "objcpp",
+    "css",
+    "markdown",
+    "cmake",
+    "json"
+  ]
 }

@@ -3,7 +3,8 @@ repo = 'Shougo/dein.vim'
 
 [[plugins]]
 repo = 'neoclide/coc.nvim'
-build = './install.sh nightly'
+merged = 0
+rev = 'release'
 hook_add = '''
   set hidden
   set nobackup
@@ -11,6 +12,7 @@ hook_add = '''
   set cmdheight=2
   set updatetime=200
   set shortmess+=c
+  set tagfunc=CocTagFunc
 
   inoremap <silent><expr> <TAB>
         \ pumvisible() ? "\<C-n>" :
@@ -22,15 +24,20 @@ hook_add = '''
 	  let col = col('.') - 1
 	  return !col || getline('.')[col - 1]  =~# '\s'
 	endfunction<Paste>
+
 	inoremap <silent><expr> <c-space> coc#refresh()
 	inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-  nmap <silent> [c <Plug>(coc-diagnostic-prev)]
+
+  nmap <silent> [c <Plug>(coc-diagnostic-prev)
 	nmap <silent> ]c <Plug>(coc-diagnostic-next)
-	nmap <silent> gd <Plug>(coc-definition)
+
+  nmap <silent> gd <Plug>(coc-definition)
   nmap <silent> gy <Plug>(coc-type-definition)
   nmap <silent> gi <Plug>(coc-implementation)
   nmap <silent> gr <Plug>(coc-references)
+
   nnoremap <silent> K :call <SID>show_documentation()<CR>
+
 	function! s:show_documentation()
 	  if (index(['vim','help'], &filetype) >= 0)
 	    execute 'h '.expand('<cword>')
@@ -38,8 +45,10 @@ hook_add = '''
 	  	call CocAction('doHover')
 		endif
 	endfunction
+
 	autocmd CursorHold * silent call CocActionAsync('highlight')
 	nmap <leader>rn <Plug>(coc-rename)
+
 	augroup mygroup
     autocmd!
     " Setup formatexpr specified filetype(s).
@@ -47,6 +56,7 @@ hook_add = '''
     " Update signature help on jump placeholder
     autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
   augroup end
+
 	xmap <leader>a  <Plug>(coc-codeaction-selected)
   nmap <leader>a  <Plug>(coc-codeaction-selected)
 
@@ -58,6 +68,7 @@ hook_add = '''
   command! -nargs=0 Format :call CocAction('format')
   " Use `:Fold` to fold current buffer
   command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
 	let g:lightline = {
   	\ 'colorscheme': 'neodark',
   	\ 'active': {
@@ -68,6 +79,7 @@ hook_add = '''
   	\   'cocstatus': 'coc#status'
   	\ },
 		\ }
+
 	nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
 	nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
 	nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
@@ -82,6 +94,9 @@ hook_add = '''
 repo = 'Shougo/neosnippet-snippets'
 
 [[plugins]]
+repo = 'honza/vim-snippets'
+
+[[plugins]]
 repo = 'Shougo/neosnippet.vim'
 on_event = 'InsertCharPre'
 on_ft = ['snippet']
@@ -93,7 +108,7 @@ hook_add = '''
     set conceallevel=2 concealcursor=niv
   endif
 '''
-depends = ['neosnippet-snippets']
+depends = ['vim-snippets', 'neosnippet-snippets']
 
 [[plugins]]
 repo = 'leico/autodate.vim'
@@ -104,7 +119,9 @@ repo = 'Shougo/neomru.vim'
 [[plugins]]
 repo = 'kassio/neoterm'
 hook_add = '''
-  let g:neoterm_autoscroll=1
+	let g:neoterm_autoinsert = 1
+  let g:neoterm_default_mod = 'rightbelow'
+	let g:neoterm_autoscroll = 1
 '''
 
 [[plugins]]
@@ -124,8 +141,20 @@ depends = [ 'KeitaNakamura/neodark.vim' ]
 [[plugins]]
 repo = 'KeitaNakamura/neodark.vim'
 hook_add = '''
+  syntax enable
+  set termguicolors
   let g:neodark#terminal_transparent = 1
-  colorscheme neodark
+  set background=light
+  colorscheme gruvbox
+  set background=light
+  let g:gruvbox_material_background = 'soft'
+  autocmd ColorScheme * highlight MatchParen guibg=Red
+  autocmd ColorScheme * highlight Include guifg=#98C379 gui=underline
+  autocmd ColorScheme * highlight Comment gui=italic
+  autocmd ColorScheme * highligh CursorLine gui=underline guibg=none
+  autocmd ColorScheme * highligh CursorLineNr gui=underline guibg=none
+  autocmd ColorScheme * highligh ColorColumn guifg=#84B97C
+  set colorcolumn=80
 '''
 
 [[plugins]]
@@ -196,22 +225,6 @@ repo = 'osyo-manga/vim-cpp-syntax-reserved_identifiers'
 repo = 'vim-airline/vim-airline-themes'
 
 [[plugins]]
-repo = 'chriskempson/base16-vim'
-
-[[plugins]]
-repo = 'chriskempson/base16'
-hook_add = '''
-  syntax enable
-  set termguicolors
-  autocmd ColorScheme * highlight MatchParen guibg=Red
-  autocmd ColorScheme * highlight Include guifg=#98C379 gui=underline
-  autocmd ColorScheme * highlight Comment gui=italic
-  autocmd ColorScheme * highligh clear CursorLine
-'''
-# highlight clear CursorLine
-depend = ['chriskempson/base16-vim']
-
-[[plugins]]
 repo = 'Lokaltog/vim-powerline'
 
 [[plugins]]
@@ -247,8 +260,7 @@ repo = 'Shougo/defx.nvim'
 on_cmd = 'Defx'
 depend = ['defx-icons', 'defx-git']
 hook_add = '''
-  nnoremap <silent> <C-l> 
-  \ :Defx -split=vertical -winwidth=40 -search=`expand('%:p')` -direction=topleft `expand('%:p:h')` -buffer-name=tab`tabpagenr()`<CR>
+  nnoremap <silent> <C-l> :Defx -split=vertical -winwidth=35 -direction=topleft -buffer-name=tab`tabpagenr()`<CR>
   autocmd FileType defx call s:defx_my_settings()
   function! s:defx_my_settings() abort
     " Define mappings
@@ -309,24 +321,13 @@ hook_add = '''
     \ defx#do_action('change_vim_cwd')
   endfunction
 '''
-# hook_add = '''
-#   nnoremap <silent> <C-l> 
-#     \ :Defx -buffer-name=tab`tabpagenr()`<CR>
-#   nnoremap <silent><buffer><expr> ~ defx#util#cd('~')
-#   nnoremap <silent><buffer><expr> <CR>
-#   \  defx#is_directory() ?
-#   \  defx#do_action('open_directory') :
-#   \  defx#do_action('multi', ['drop', 'quit'])
-# '''
 hook_source ='''
   function! Root(path) abort
     return fnamemodify(a:path, ':t')
   endfunction
-
   call defx#custom#source('file', {
       \ 'root': 'Root',
       \ })
-
   call defx#custom#option('_', {
       \ 'columns': 'indent:git:icons:filename',
       \ 'show_ignored_files': 1,
@@ -343,3 +344,8 @@ repo = 'kristijanhusak/defx-git'
 # defx = '''
 # '''
 
+[[plugins]]
+repo = 'junegunn/fzf.vim'
+hook_source = '''
+  nnoremap <C-q> :Files<CR>
+'''
