@@ -12,7 +12,6 @@ hook_add = '''
   set cmdheight=2
   set updatetime=200
   set shortmess+=c
-  set tagfunc=CocTagFunc
 
   inoremap <silent><expr> <TAB>
         \ pumvisible() ? "\<C-n>" :
@@ -70,7 +69,7 @@ hook_add = '''
   command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
 	let g:lightline = {
-  	\ 'colorscheme': 'neodark',
+  	\ 'colorscheme': 'gruvbox',
   	\ 'active': {
   	\   'left': [ [ 'mode', 'paste'  ],
   	\             [ 'cocstatus', 'readonly', 'filename', 'modified'  ] ]
@@ -144,10 +143,9 @@ hook_add = '''
   syntax enable
   set termguicolors
   let g:neodark#terminal_transparent = 1
-  set background=light
+  set background=dark
   colorscheme gruvbox
-  set background=light
-  let g:gruvbox_material_background = 'soft'
+  let g:gruvbox_material_background = 'hard'
   autocmd ColorScheme * highlight MatchParen guibg=Red
   autocmd ColorScheme * highlight Include guifg=#98C379 gui=underline
   autocmd ColorScheme * highlight Comment gui=italic
@@ -225,11 +223,11 @@ repo = 'osyo-manga/vim-cpp-syntax-reserved_identifiers'
 repo = 'vim-airline/vim-airline-themes'
 
 [[plugins]]
-repo = 'Lokaltog/vim-powerline'
+repo = 'powerline/powerline'
 
 [[plugins]]
 repo = 'vim-airline/vim-airline'
-depends = ['vim-airline-themes', 'Lokaltog/vim-powerline', 'airblade/vim-gitgutter']
+depends = ['vim-airline-themes', 'powerline/powerline', 'airblade/vim-gitgutter']
 hook_add = '''
   let g:airline#extensions#tabline#enabled = 1
   let g:airline#extensions#whitespace#enabled = 1
@@ -258,9 +256,9 @@ repo = 'pboettch/vim-cmake-syntax'
 [[plugins]]
 repo = 'Shougo/defx.nvim'
 on_cmd = 'Defx'
-depend = ['defx-icons', 'defx-git']
+depends = ['kristijanhusak/defx-icons', 'kristijanhusak/defx-git']
 hook_add = '''
-  nnoremap <silent> <C-l> :Defx -split=vertical -winwidth=35 -direction=topleft -buffer-name=tab`tabpagenr()`<CR>
+  nnoremap <silent> <C-l> :Defx -split=vertical -winwidth=40 -direction=topleft -buffer-name=tab`tabpagenr()`<CR>
   autocmd FileType defx call s:defx_my_settings()
   function! s:defx_my_settings() abort
     " Define mappings
@@ -333,19 +331,24 @@ hook_source ='''
       \ 'show_ignored_files': 1,
       \ })
 '''
-#
+
 [[plugins]]
 repo = 'kristijanhusak/defx-icons'
 
 [[plugins]]
 repo = 'kristijanhusak/defx-git'
 
-# [plugins.ftplugin]
-# defx = '''
-# '''
-
 [[plugins]]
 repo = 'junegunn/fzf.vim'
 hook_source = '''
   nnoremap <C-q> :Files<CR>
 '''
+
+[[plugins]]
+repo = 'neomutt/neomutt.vim'
+
+[[plugins]]
+repo = 'mhinz/neovim-remote'
+
+[[plugins]]
+repo = 'rhysd/vim-llvm'

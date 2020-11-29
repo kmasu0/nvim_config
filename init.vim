@@ -9,8 +9,12 @@ endif
 let g:python3_host_prog='/usr/bin/python3'
 let g:ruby_host_prog='/usr/bin/ruby'
 let g:node_host_prog='/usr/local/bin/neovim-node-host'
+if (has("termguicolors"))
+  set termguicolors
+endif
 
-set runtimepath+=$HOME/.config/nvim/dein/repos/github.com/Shougo/dein.vim
+set rtp+=$HOME/.fzf
+set rtp+=$HOME/.config/nvim/dein/repos/github.com/Shougo/dein.vim
 set termguicolors
 
 if dein#load_state($HOME . '/.config/nvim/dein')
@@ -82,7 +86,7 @@ set sidescroll=10
 "set smartindent 
 
 " terminal
-set sh=zsh
+set sh=fish
 autocmd TermOpen * setlocal norelativenumber
 autocmd TermOpen * setlocal nonumber
 tnoremap <silent> <ESC> <C-\><C-n>
@@ -178,3 +182,22 @@ inoremap <C-]> <ESC>g<C-]>
 
 " cursor shape
 set guicursor=n-v-c-sm:block,i-ci:ver20-blinkon100
+
+let g:terminal_color_0  = "#1b2b34" "black
+let g:terminal_color_1  = "#ed5f67" "red
+let g:terminal_color_2  = "#9ac895" "green
+let g:terminal_color_3  = "#fbc963" "yellow
+let g:terminal_color_4  = "#669acd" "blue
+let g:terminal_color_5  = "#c695c6" "magenta
+let g:terminal_color_6  = "#5fb4b4" "cyan
+let g:terminal_color_7  = "#c1c6cf" "white
+let g:terminal_color_8  = "#65737e" "bright black
+let g:terminal_color_9  = "#fa9257" "bright red
+let g:terminal_color_10 = "#343d46" "bright green
+let g:terminal_color_11 = "#4f5b66" "bright yellow
+let g:terminal_color_12 = "#a8aebb" "bright blue
+let g:terminal_color_13 = "#ced4df" "bright magenta
+let g:terminal_color_14 = "#ac7967" "bright cyan
+let g:terminal_color_15 = "#d9dfea" "bright white
+let g:terminal_color_background="#1b2b34" "background
+let g:terminal_color_foreground="#c1c6cf" "foreground

@@ -1,16 +1,18 @@
 {
   "languageserver": {
     "ccls": {
-      "command": "ccls",
-      "filetypes": ["c", "cpp", "objc", "objcpp"],
+      "command": "/opt/ccls/bin/ccls",
+      "filetypes": [
+        "c",
+        "cpp",
+        "objc",
+        "objcpp",
+        "h",
+        "hpp"
+      ],
       "rootPatterns": [
-        ".ccls-root",
-        "compile_flags.txt",
-        "compile_commands.json",
-        "./",
-        ".config/nvim/",
-        ".git/",
-        ".hg/"
+        ".ccls",
+        "compile_commands.json"
       ],
       "initializationOptions": {
         "cache": {
@@ -20,29 +22,27 @@
     },
     "cmake": {
       "command": "cmake-language-server",
-      "filetypes": ["cmake"],
-      "rootPatterns": ["build/"],
+      "filetypes": [
+        "cmake"
+      ],
+      "rootPatterns": [
+        "build/"
+      ],
       "initializationOptions": {
         "buildDirectory": "build"
       }
     }
   },
-  "diagnostic-languageserver.filetypes": { "sh": "shellcheck" },
-  "diagnostic-languageserver.formatFiletypes": {
-    "sh": "shfmt"
-  },
-  "diagnostic-languageserver.formatters": {
-    "shfmt": {
-      "command": "shfmt",
-      "args": ["-i", "2", "-bn", "-ci", "-sr"]
-    }
-  },
+  "python.jediEnabled": false,
   "coc.preferences.formatOnSaveFiletypes": [
     "c",
     "cpp",
     "objc",
     "objcpp",
+    "h",
+    "hpp",
     "css",
+    "python",
     "markdown",
     "cmake",
     "json"
