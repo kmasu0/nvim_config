@@ -87,27 +87,17 @@ hook_add = '''
 	nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 	nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 	nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
-'''
 
-[[plugins]]
-repo = 'Shougo/neosnippet-snippets'
+  imap <C-k> <Plug>(coc-snippets-expand)
+  vmap <C-k> <Plug>(coc-snippets-select)
+  let g:coc_snippet_next = '<c-k>'
+  let g:coc_snippet_prev = '<c-r>'
+  imap <C-k> <Plug>(coc-snippets-expand-jump)
+  xmap <leader>x  <Plug>(coc-convert-snippet)
+'''
 
 [[plugins]]
 repo = 'honza/vim-snippets'
-
-[[plugins]]
-repo = 'Shougo/neosnippet.vim'
-on_event = 'InsertCharPre'
-on_ft = ['snippet']
-hook_add = '''
-  imap <C-k> <Plug>(neosnippet_expand_or_jump)
-  smap <C-k> <Plug>(neosnippet_expand_or_jump)
-  xmap <C-k> <Plug>(neosnippet_expand_target)
-  if has('conceal')
-    set conceallevel=2 concealcursor=niv
-  endif
-'''
-depends = ['vim-snippets', 'neosnippet-snippets']
 
 [[plugins]]
 repo = 'leico/autodate.vim'
@@ -256,13 +246,17 @@ repo = 'pboettch/vim-cmake-syntax'
 [[plugins]]
 repo = 'Shougo/defx.nvim'
 on_cmd = 'Defx'
-depends = ['kristijanhusak/defx-icons', 'kristijanhusak/defx-git']
+depends = ['kristijanhusak/defx-icons']
 hook_add = '''
-  nnoremap <silent> <C-l> :Defx -split=vertical -winwidth=40 -direction=topleft -buffer-name=tab`tabpagenr()`<CR>
   autocmd FileType defx call s:defx_my_settings()
+  nnoremap <silent> <C-l> :Defx<CR>
   function! s:defx_my_settings() abort
     " Define mappings
     nnoremap <silent><buffer><expr> <CR>
+    \ defx#is_directory() ?
+    \ defx#do_action('open_or_close_tree') :
+    \ defx#do_action('drop')
+    nnoremap <silent><buffer><expr> <C-j>
     \ defx#is_directory() ?
     \ defx#do_action('open_or_close_tree') :
     \ defx#do_action('drop')
@@ -273,14 +267,16 @@ hook_add = '''
     nnoremap <silent><buffer><expr> p
     \ defx#do_action('paste')
     nnoremap <silent><buffer><expr> l
-    \ defx#do_action('open')
+    \ defx#is_directory() ?
+    \ defx#do_action('open_or_close_tree') :
+    \ defx#do_action('drop')
     nnoremap <silent><buffer><expr> K
     \ defx#do_action('new_directory')
     nnoremap <silent><buffer><expr> N
     \ defx#do_action('new_file')
     nnoremap <silent><buffer><expr> C
     \ defx#do_action('toggle_columns',
-    \                'git:mark:indent:icon:filename:type:size:time')
+    \                'mark:indent:icons:filename')
     nnoremap <silent><buffer><expr> S
     \ defx#do_action('toggle_sort', 'time')
     nnoremap <silent><buffer><expr> d
@@ -311,8 +307,6 @@ hook_add = '''
     \ line('.') == line('$') ? 'gg' : 'j'
     nnoremap <silent><buffer><expr> k
     \ line('.') == 1 ? 'G' : 'k'
-    nnoremap <silent><buffer><expr> <C-l>
-    \ defx#do_action('redraw')
     nnoremap <silent><buffer><expr> <C-g>
     \ defx#do_action('print')
     nnoremap <silent><buffer><expr> cd
@@ -327,8 +321,14 @@ hook_source ='''
       \ 'root': 'Root',
       \ })
   call defx#custom#option('_', {
-      \ 'columns': 'indent:git:icons:filename',
+      \ 'winwidth': 40,
+      \ 'columns': 'mark:indent:icons:filename',
+      \ 'direction': 'topleft',
       \ 'show_ignored_files': 1,
+      \ 'split': 'vertical',
+      \ 'sort': 'extension:filename',
+      \ 'toggle': 1,
+      \ 'resume': 1,
       \ })
 '''
 
@@ -352,3 +352,6 @@ repo = 'mhinz/neovim-remote'
 
 [[plugins]]
 repo = 'rhysd/vim-llvm'
+
+[[plugins]]
+repo = 'tversteeg/registers.nvim'

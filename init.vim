@@ -6,9 +6,6 @@ if &compatible
   set nocompatible
 endif
 
-let g:python3_host_prog='/usr/bin/python3'
-let g:ruby_host_prog='/usr/bin/ruby'
-let g:node_host_prog='/usr/local/bin/neovim-node-host'
 if (has("termguicolors"))
   set termguicolors
 endif
@@ -39,8 +36,6 @@ syntax enable
 if dein#check_install()
   call dein#install()
 endif
-
-call dein#add($HOME . '/.config/nvim/dein/plugins/vim-scripts/gtags.vim')
 
 " [ netrw ]
 let g:netrw_liststyle = 3
@@ -86,7 +81,7 @@ set sidescroll=10
 "set smartindent 
 
 " terminal
-set sh=fish
+set sh=zsh
 autocmd TermOpen * setlocal norelativenumber
 autocmd TermOpen * setlocal nonumber
 tnoremap <silent> <ESC> <C-\><C-n>
@@ -128,6 +123,8 @@ set noerrorbells
 set infercase
 set cursorline
 set tags=tags
+
+set guifont=RobotoMono\ Nerd\ Font\ Mono\ Regular
 
 " user set command
 augroup QuickFixCmd
